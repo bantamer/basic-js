@@ -1,7 +1,24 @@
-const CustomError = require("../extensions/custom-error");
+module.exports = function repeater(str, options) {
+  if (options.addition !== undefined) {
+    const separetedAddition = ` ${options.addition}`
+      .repeat(options.additionRepeatTimes || 1)
+      .trim()
+      .split(' ')
+      .join(options.additionSeparator || '|');
+    const strWithAddition = `${str} `.split(' ').join(separetedAddition || '');
+    const resultStr = `${strWithAddition} `
+      .repeat(options.repeatTimes || 1)
+      .trim()
+      .split(' ')
+      .join(options.separator || '+');
 
-module.exports = function repeater(/* str, options */) {
-  throw new CustomError('Not implemented');
-  // remove line with error and write your code here
+    return resultStr;
+  }
+  const resultStr = `${str} `
+    .repeat(options.repeatTimes || 1)
+    .trim()
+    .split(' ')
+    .join(options.separator || '+');
+
+  return resultStr;
 };
-  
