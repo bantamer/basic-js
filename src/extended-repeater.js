@@ -1,24 +1,19 @@
 module.exports = function repeater(str, options) {
-  if (options.addition !== undefined) {
-    const separetedAddition = ` ${options.addition}`
-      .repeat(options.additionRepeatTimes || 1)
-      .trim()
-      .split(' ')
-      .join(options.additionSeparator || '|');
-    const strWithAddition = `${str} `.split(' ').join(separetedAddition || '');
-    const resultStr = `${strWithAddition} `
-      .repeat(options.repeatTimes || 1)
-      .trim()
-      .split(' ')
-      .join(options.separator || '+');
+  options = Object.assign(
+    {
+      separator: '+',
+      additionSeparator: '|',
+      addition: '',
+    },
+    options
+  );
 
-    return resultStr;
-  }
-  const resultStr = `${str} `
+  const separetedAddition = `${String(options.addition)}${options.additionSeparator}`
+    .repeat(options.additionRepeatTimes || 1)
+    .slice(0, -options.additionSeparator.length);
+  const strWithAddition = `${String(str)}${separetedAddition}${options.separator}`
     .repeat(options.repeatTimes || 1)
-    .trim()
-    .split(' ')
-    .join(options.separator || '+');
+    .slice(0, -options.separator.length);
 
-  return resultStr;
+  return strWithAddition;
 };
